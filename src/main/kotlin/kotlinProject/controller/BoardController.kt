@@ -1,6 +1,7 @@
 package kotlinProject.controller
 
-import kotlinProject.entity.Post
+import kotlinProject.dto.PostRequest
+import kotlinProject.dto.PostResponse
 import kotlinProject.service.PostService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -12,25 +13,27 @@ class PostController(
 ) {
 
     @PostMapping
-    fun createPost(@RequestBody request: PostRequest): ResponseEntity<Post> {
+    fun createPost(@RequestBody request: PostRequest): ResponseEntity<PostResponse> {
         val post = postService.createPost(request.title, request.content, request.author)
-        return ResponseEntity.ok(post)
+        return ResponseEntity.ok(PostResponse(post.id, post.title, post.content, post.author))
     }
 
     @GetMapping
-    fun getAllPosts(): ResponseEntity<List<Post>> {
-        return ResponseEntity.ok(postService.getAllPosts())
+    fun getAllPosts(): ResponseEntity<List<PostResponse>> {
+        val posts = postService.getAllPosts().map { PostResponse(it.id, it.title, it.content, it.author) }
+        return ResponseEntity.ok(posts)
     }
 
     @GetMapping("/{id}")
-    fun getPostById(@PathVariable id: Long): ResponseEntity<Post> {
-        return ResponseEntity.ok(postService.getPostById(id))
+    fun getPostById(@PathVariable id: Long): ResponseEntity<PostResponse> {
+        val post = postService.getPostById(id)
+        return ResponseEntity.ok(PostResponse(post.id, post.title, post.content, post.author))
     }
 
     @PutMapping("/{id}")
-    fun updatePost(@PathVariable id: Long, @RequestBody request: PostRequest): ResponseEntity<Post> {
+    fun updatePost(@PathVariable id: Long, @RequestBody request: PostRequest): ResponseEntity<PostResponse> {
         val updatedPost = postService.updatePost(id, request.title, request.content)
-        return ResponseEntity.ok(updatedPost)
+        return ResponseEntity.ok(PostResponse(updatedPost.id, updatedPost.title, updatedPost.content, updatedPost.author))
     }
 
     @DeleteMapping("/{id}")
@@ -39,9 +42,3 @@ class PostController(
         return ResponseEntity.noContent().build()
     }
 }
-
-data class PostRequest(
-    val title: String,
-    val content: String,
-    val author: String
-)

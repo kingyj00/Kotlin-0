@@ -8,7 +8,7 @@ import java.time.LocalDateTime
 class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    val id: Long = 0L,  // ✅ 기본값 설정 (nullable 제거)
 
     var title: String,
 
