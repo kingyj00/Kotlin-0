@@ -43,6 +43,12 @@ dependencies {
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	implementation("io.jsonwebtoken:jjwt:0.11.5") // JWT 라이브러리
+	implementation("org.springframework.boot:spring-boot-starter-security") // 스프링 시큐리티
+	implementation("org.springframework.boot:spring-boot-starter-web") // 웹 지원
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
+	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
 }
 
 kotlin {

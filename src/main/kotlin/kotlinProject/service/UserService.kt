@@ -21,6 +21,7 @@ class UserService(
         // 비밀번호 암호화 후 저장
         val encodedPassword = passwordEncoder.encode(request.password)
         val user = userRepository.save(User(username = request.username, password = encodedPassword))
-        return UserResponse(user.id, user.username)
+
+        return UserResponse(user.id, user.username) // 🔹 user.id가 nullable이므로 그대로 전달 가능
     }
 }
