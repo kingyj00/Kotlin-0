@@ -1,32 +1,24 @@
 version: '3.8'
 
 services:
-  mysql:
+  db:
     image: mysql:8.0
-    container_name: my_mysql
+    container_name: mysql_container
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword  # MySQL 루트 비밀번호
-      MYSQL_DATABASE: springboot_db  # 사용할 DB 이름
-      MYSQL_USER: user
-      MYSQL_PASSWORD: userpassword
+      MYSQL_ROOT_PASSWORD: mypassword  # 루트 비밀번호
+      MYSQL_DATABASE: my_database        # 기본 데이터베이스 이름
+      MYSQL_USER: my_user                # MySQL 사용자 이름
+      MYSQL_PASSWORD: mypassword        # MySQL 사용자 비밀번호
     ports:
-      - "3306:3306"
+      - "3306:3306"  # 호스트와 컨테이너의 포트 매핑
     volumes:
-      - mysql_data:/var/lib/mysql  # 데이터 보존
-
-  app:
-    build: .
-    container_name: my_springboot_app
-    restart: always
-    depends_on:
-      - mysql
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/springboot_db
-      SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: userpassword
-    ports:
-      - "8080:8080"
+      - mysql_data:/var/lib/mysql  # 데이터 영속성 유지
+    networks:
+      - backend_network  # 네트워크 설정
 
 volumes:
-  mysql_data:
+  mysql_data:  # 데이터 저장소
+
+networks:
+  backend_network:  # 네트워크 설정

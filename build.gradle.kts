@@ -26,29 +26,39 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-mail")
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-	implementation("org.springframework.boot:spring-boot-starter-validation")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+	// Spring Boot 기본 스타터
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa") // JPA (MySQL과 연결)
+	implementation("org.springframework.boot:spring-boot-starter-mail") // 이메일 기능
+	implementation("org.springframework.boot:spring-boot-starter-security") // 보안 (로그인, 인증)
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf") // Thymeleaf 템플릿 엔진
+	implementation("org.springframework.boot:spring-boot-starter-validation") // 유효성 검사
+	implementation("org.springframework.boot:spring-boot-starter-web") // 웹 서버 지원
+
+	// 기타 라이브러리
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // JSON 변환 지원
+	implementation("org.jetbrains.kotlin:kotlin-reflect") // Kotlin 리플렉션
+	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6") // Thymeleaf + Spring Security
+
+	// JWT (토큰 기반 인증)
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+	implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
+	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
+
+	// Lombok (코드 간소화)
 	compileOnly("org.projectlombok:lombok")
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-	runtimeOnly("com.mysql:mysql-connector-j")
 	annotationProcessor("org.projectlombok:lombok")
+
+	// 개발용 도구 (핫 리로드)
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+	// MySQL 연결 (도커 사용)
+	runtimeOnly("com.mysql:mysql-connector-j")
+
+	// 테스트 관련 라이브러리
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testImplementation("org.springframework.security:spring-security-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-	implementation("io.jsonwebtoken:jjwt:0.11.5") // JWT 라이브러리
-	implementation("org.springframework.boot:spring-boot-starter-security") // 스프링 시큐리티
-	implementation("org.springframework.boot:spring-boot-starter-web") // 웹 지원
-	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-	implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
-	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
 }
 
 kotlin {
